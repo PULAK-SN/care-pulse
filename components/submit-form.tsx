@@ -9,6 +9,7 @@ interface SubmitButtonProps {
 const SubmitForm = ({ isLoading, className, children }: SubmitButtonProps) => {
   return (
     <Button
+      type="submit"
       disabled={isLoading}
       className={className ?? "bg-green-500 text-white w-full"}
     >
