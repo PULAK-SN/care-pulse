@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import {
   Form,
@@ -14,7 +15,11 @@ import { FormFieldType } from "./forms/patient-form";
 import Image from "next/image";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-import { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { Select, SelectContent, SelectTrigger, SelectValue } from "./ui/select";
+import { Textarea } from "./ui/textarea";
+import { Checkbox } from "./ui/checkbox";
 
 interface CustomProps {
   control: Control<any>;
@@ -32,11 +37,19 @@ interface CustomProps {
 }
 
 const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
-  const { fieldType, placeholder, iconSrc, iconAlt } = props;
+  const {
+    fieldType,
+    placeholder,
+    iconSrc,
+    iconAlt,
+    showTimeSelect,
+    dateFormat,
+    renderSkeleton,
+  } = props;
   switch (fieldType) {
     case FormFieldType.INPUT:
       return (
-        <div className="flex rounded-md border border-black/500 bg-black/400">
+        <div className="flex rounded-md border border-gray-500 bg-black/40">
           {iconSrc && (
             <Image
               src={iconSrc}
@@ -50,7 +63,7 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
             <Input
               placeholder={placeholder}
               {...field}
-              className="bg-black/400 !placeholder:text-black/600 border-black/500 h-11 focus-visible:ring-0 focus-visible:ring-offset-0 border-0"
+              className="!placeholder:text-black/600 h-11 focus-visible:ring-0 focus-visible:ring-offset-0 border-0"
             />
           </FormControl>
         </div>
@@ -65,8 +78,78 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
             placeholder={placeholder}
             value={field.value}
             onChange={field.onChange}
-            className="mt-2 h-11 rounded-md px-3 text-sm border bg-black/400 placeholder:text-blck/600 border-black/500"
+            className="mt-2 h-11 rounded-md px-2 text-sm border !border-gray-500 placeholder:text-black/60"
           />
+        </FormControl>
+      );
+    case FormFieldType.DATE_PICKER:
+      return (
+        <div className="flex rounded-md border !border-gray-500">
+          <Image
+            src="/assets/icons/calendar.svg"
+            height={24}
+            width={24}
+            alt="calendar"
+            className="ml-2"
+          />
+          <FormControl>
+            <DatePicker
+              selected={field.value}
+              onChange={(date) => field.onChange(date)}
+              dateFormat={dateFormat ?? "mm/dd/yyyy"}
+              showTimeSelect={showTimeSelect ?? false}
+              timeInputLabel="Time:"
+              // wrapperClassName="overflow-hidden border-transparent w-full placeholder:text-dark-600  h-11 text-14-medium rounded-md px-3 outline-none"
+              className="border-none outline-none ml-2  h-11 w-full overflow-hidden border-transparent text-xs sm:font-medium rounded-md px-3"
+            />
+          </FormControl>
+        </div>
+      );
+    case FormFieldType.SKELETON:
+      return renderSkeleton ? renderSkeleton(field) : null;
+    case FormFieldType.SELECT:
+      return (
+        <FormControl>
+          <Select onValueChange={field.onChange} defaultValue={field.value}>
+            <FormControl>
+              <SelectTrigger className="!border-gray-500 bg-black/40 border-1 w-full px-2 placeholder:text-black/60 h-11 focus:ring-0 focus:ring-offset-0">
+                <SelectValue placeholder={placeholder} />
+              </SelectTrigger>
+            </FormControl>
+            <SelectContent className="bg-gray-900 !border-gray-500">
+              {props.children}
+            </SelectContent>
+          </Select>
+        </FormControl>
+      );
+    case FormFieldType.TEXTAREA:
+      return (
+        <FormControl>
+          <Textarea
+            placeholder={placeholder}
+            {...field}
+            disabled={props.disabled}
+            className="focus-visible:ring-0 focus-visible:ring-offset-0"
+          />
+        </FormControl>
+      );
+    case FormFieldType.CHECKBOX:
+      return (
+        <FormControl>
+          <div className="flex items-center gap-4">
+            <Checkbox
+              id={props.name}
+              checked={field.value}
+              onCheckedChange={field.onChange}
+            />
+            <label
+              htmlFor={props.name}
+              className="cursor-pointer text-sm font-medium text-gray-200 
+              peer-disabled:cursor-not-allowed peer-disabled:opacity-70 md:leading-none"
+            >
+              {props.label}
+            </label>
+          </div>
         </FormControl>
       );
     default:

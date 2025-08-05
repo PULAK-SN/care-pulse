@@ -59,7 +59,7 @@ const PatientForm = () => {
           <h1 className="text-[32px] font-bold md:text-[36px] md:font-bold">
             Hi there
           </h1>
-          <p className="text-gray-700">Scedule your first appointment.</p>
+          <p className="text-white/70">Scedule your first appointment.</p>
         </section>
 
         <CustomFormField
