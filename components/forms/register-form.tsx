@@ -6,49 +6,94 @@ import { Form, FormControl } from "@/components/ui/form";
 import CustomFormField from "@/components/custom-form-field";
 import SubmitForm from "../submit-form";
 import { useState } from "react";
-import { UserFormValidation } from "@/lib/validation";
-import { createUser } from "@/lib/actions/patient.actions";
-import { useRouter } from "next/navigation";
+import { PatientFormValidation } from "@/lib/validation";
+import { registerPatient } from "@/lib/actions/patient.actions";
 import { FormFieldType } from "./patient-form";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import { Doctors, GenderOptions, IdentificationTypes } from "@/constans";
+import {
+  Doctors,
+  GenderOptions,
+  IdentificationTypes,
+  PatientFormDefaultValues,
+} from "@/constans";
 import { Label } from "../ui/label";
 import { SelectItem } from "../ui/select";
 import Image from "next/image";
 import FileUploader from "../file-uploader";
+import { useRouter } from "next/navigation";
 
-const RegisterFrom = ({ user }: { user: User }) => {
+const RegisterForm = ({ user }: { user: User }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  // 1. Define your form.
-  const form = useForm<z.infer<typeof UserFormValidation>>({
-    resolver: zodResolver(UserFormValidation),
+
+  const form = useForm<z.infer<typeof PatientFormValidation>>({
+    // resolver: zodResolver(PatientFormValidation),
     defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
+      ...PatientFormDefaultValues,
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof UserFormValidation>) => {
+  const onSubmit = async (values: z.infer<typeof PatientFormValidation>) => {
     setIsLoading(true);
 
+    // Store file info in form data as
+    let formData;
+    if (
+      values.identificationDocument &&
+      values.identificationDocument?.length > 0
+    ) {
+      const blobFile = new Blob([values.identificationDocument[0]], {
+        type: values.identificationDocument[0].type,
+      });
+
+      formData = new FormData();
+      formData.append("blobFile", blobFile);
+      formData.append("fileName", values.identificationDocument[0].name);
+    }
+
     try {
-      const user = {
+      const patient = {
+        userId: user.$id,
         name: values.name,
         email: values.email,
         phone: values.phone,
+        birthDate: new Date(values.birthDate),
+        gender: values.gender,
+        address: values.address,
+        occupation: values.occupation,
+        emergencyContactName: values.emergencyContactName,
+        emergencyContactNumber: values.emergencyContactNumber,
+        primaryPhysician: values.primaryPhysician,
+        insuranceProvider: values.insuranceProvider,
+        insurancePolicyNumber: values.insurancePolicyNumber,
+        allergies: values.allergies,
+        currentMedication: values.currentMedication,
+        familyMedicalHistory: values.familyMedicalHistory,
+        pastMedicalHistory: values.pastMedicalHistory,
+        identificationType: values.identificationType,
+        identificationNumber: values.identificationNumber,
+        identificationDocument: values.identificationDocument
+          ? formData
+          : undefined,
+        privacyConsent: values.privacyConsent,
+        treatmentConsent: values.treatmentConsent,
+        disclosureConsent: values.disclosureConsent,
       };
+      const newPatient = await registerPatient(patient);
 
-      const newUser = await createUser(user);
-      if (newUser) {
-        router.push(`/patients/${newUser.$id}/register`);
+      if (newPatient) {
+        router.push(`/patients/${user.$id}/new-appointment`);
       }
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
+
     setIsLoading(false);
   };
+
   return (
     <Form {...form}>
       <form
@@ -57,7 +102,7 @@ const RegisterFrom = ({ user }: { user: User }) => {
       >
         <section className="space-y-4">
           <h1 className="text-[32px] font-bold md:text-[36px] md:font-bold">
-            Welcome
+            Welcome 👋
           </h1>
           <p className="text-white/70">Let us know more about yourself.</p>
         </section>
@@ -318,10 +363,10 @@ const RegisterFrom = ({ user }: { user: User }) => {
           />
         </section>
 
-        <SubmitForm isLoading={isLoading}>Get Started</SubmitForm>
+        <SubmitForm isLoading={isLoading}>Submit and Continue</SubmitForm>
       </form>
     </Form>
   );
 };
 
-export default RegisterFrom;
+export default RegisterForm;

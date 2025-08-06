@@ -17,6 +17,7 @@ export default function Home() {
           />
 
           <PatientForm />
+
           <div className="text-[14px] mt-20 flex justify-between">
             <p className="justify-items-end text-gray-700 xl:text-left">
               ©2025 CarePulse
@@ -32,7 +33,7 @@ export default function Home() {
         alt="patient"
         height={1000}
         width={1000}
-        className="hidden h-full object-cover md:block max-w-[50%]"
+        className="hidden object-cover md:block max-w-[50%]"
       />
     </div>
   );
