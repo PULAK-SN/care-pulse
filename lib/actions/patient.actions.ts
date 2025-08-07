@@ -1,6 +1,6 @@
 "use server";
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ID, Query } from "node-appwrite";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { databases, storage, users } from "../appwrite.config";
 import { parseStringify } from "../utils";
 import { InputFile } from "node-appwrite/file";
@@ -28,6 +28,19 @@ export const getUser = async (userId: string) => {
   try {
     const user = await users.get(userId);
     return parseStringify(user);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getPatient = async (userId: string) => {
+  try {
+    const patients = await databases.listDocuments(
+      process.env.DATABASE_ID!,
+      process.env.PATIENT_COLLECTION_ID!,
+      [Query.equal("userId", userId)]
+    );
+    return parseStringify(patients.documents[0]);
   } catch (error) {
     console.error(error);
   }

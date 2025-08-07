@@ -27,7 +27,7 @@ const RegisterForm = ({ user }: { user: User }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof PatientFormValidation>>({
-    resolver: zodResolver(PatientFormValidation),
+    // resolver: zodResolver(PatientFormValidation),
     defaultValues: {
       ...PatientFormDefaultValues,
       name: user.name,
@@ -60,7 +60,8 @@ const RegisterForm = ({ user }: { user: User }) => {
         name: values.name,
         email: values.email,
         phone: values.phone,
-        birthDate: new Date(values.birthDate),
+        // birthDate: new Date(values.birthDate),
+        birthDate: values.birthDate,
         gender: values.gender,
         address: values.address,
         occupation: values.occupation,

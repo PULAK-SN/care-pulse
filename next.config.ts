@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
     BUCKET_ID: process.env.NEXT_PUBLIC_BUCKET_ID,
     DATABASE_ID: process.env.DATABASE_ID,
     PATIENT_COLLECTION_ID: process.env.PATIENT_COLLECTION_ID,
+    APPOINTMENT_COLLECTION_ID: process.env.APPOINTMENT_COLLECTION_ID,
   },
 };
 
