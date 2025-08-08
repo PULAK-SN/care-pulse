@@ -14,7 +14,7 @@ const SubmitForm = ({ isLoading, className, children }: SubmitButtonProps) => {
       disabled={isLoading}
       className={
         className ??
-        "bg-green-500 hover:bg-green-500/90 cursor-pointer text-white w-full"
+        "bg-green-500 hover:bg-green-500/80 cursor-pointer text-white w-full"
       }
     >
       {isLoading ? (

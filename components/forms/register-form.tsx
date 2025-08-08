@@ -110,9 +110,7 @@ const RegisterForm = ({ user }: { user: User }) => {
 
         <section className="space-y-6">
           <div className="mb-9 space-y-1">
-            <h2 className="text-xl font-bold md:text-24-bold">
-              Personal Information
-            </h2>
+            <h2 className="text-xl font-bold">Personal Information</h2>
           </div>
 
           <CustomFormField
@@ -215,9 +213,7 @@ const RegisterForm = ({ user }: { user: User }) => {
 
         <section className="space-y-6">
           <div className="mb-9 space-y-1">
-            <h2 className="text-xl font-bold md:text-24-bold">
-              Medical Information
-            </h2>
+            <h2 className="text-xl font-bold">Medical Information</h2>
           </div>
 
           <CustomFormField
@@ -235,7 +231,7 @@ const RegisterForm = ({ user }: { user: User }) => {
                     width={32}
                     height={32}
                     alt="doctor"
-                    className="rounded-full border border-dark-500"
+                    className="rounded-full border"
                   />
                   <p>{doctor.name}</p>
                 </div>

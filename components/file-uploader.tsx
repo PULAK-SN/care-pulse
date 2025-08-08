@@ -18,7 +18,7 @@ const FileUploader = ({ files, onChange }: FileUploaderProps) => {
   return (
     <div
       {...getRootProps()}
-      className="flex cursor-pointer  flex-col items-center justify-center gap-3 rounded-md border border-dashed border-dark-500 bg-dark-400 p-5"
+      className="flex cursor-pointer  flex-col items-center justify-center gap-3 rounded-md border border-dashed p-5"
     >
       <input {...getInputProps()} />
       {files && files.length > 0 ? (

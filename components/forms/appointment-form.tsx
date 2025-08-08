@@ -126,7 +126,7 @@ const AppointmentForm = ({
                       width={32}
                       height={32}
                       alt="doctor"
-                      className="rounded-full border border-dark-500"
+                      className="rounded-full border"
                     />
                     <p>{doctor.name}</p>
                   </div>
