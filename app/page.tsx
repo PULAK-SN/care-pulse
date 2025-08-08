@@ -1,11 +1,15 @@
 import PatientForm from "@/components/forms/patient-form";
+import PasskeyModal from "@/components/passkey-modal";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Home() {
+export default async function Home({ searchParams }: SearchParamProps) {
+  const { admin } = await searchParams;
+  const isAdmin = admin === "true";
   return (
     <div className="flex h-screen min-h-screen">
       {/* OTP Verification | Passkey */}
+      {isAdmin && <PasskeyModal />}
       <section className=" relative flex-1 overflow-y-auto my-auto px-[5%]">
         <div className="mx-auto flex size-full flex-col py-10 max-w-[469px]">
           <Image
@@ -33,7 +37,7 @@ export default function Home() {
         alt="patient"
         height={1000}
         width={1000}
-        className="hidden object-cover md:block max-w-[50%]"
+        className="hidden h-full w-full object-cover md:block max-w-[50%]"
       />
     </div>
   );
