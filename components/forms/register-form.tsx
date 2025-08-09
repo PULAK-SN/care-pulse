@@ -293,7 +293,7 @@ const RegisterForm = ({ user }: { user: User }) => {
 
         <section className="space-y-6">
           <div className="mb-9 space-y-1">
-            <h2 className="text-xl font-bold md:text-24-bold">
+            <h2 className="text-xl font-bold md:text-[24px] md:font-bold">
               Identification and verification
             </h2>
           </div>
@@ -334,7 +334,7 @@ const RegisterForm = ({ user }: { user: User }) => {
 
         <section className="space-y-6">
           <div className="mb-9 space-y-1">
-            <h2 className="text-xl font-bold md:text-24-bold">
+            <h2 className="text-xl font-bold md:md:text-[24px] md:font-bold">
               Consent and Privacy
             </h2>
           </div>

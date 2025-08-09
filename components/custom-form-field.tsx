@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import {
-  Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -113,7 +111,7 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
         <FormControl>
           <Select onValueChange={field.onChange} defaultValue={field.value}>
             <FormControl>
-              <SelectTrigger className="!border-gray-500 bg-black/40 border-1 w-full px-2 placeholder:text-black/60 h-11 focus:ring-0 focus:ring-offset-0">
+              <SelectTrigger className="!border-gray-500 bg-black/40 border w-full px-2 placeholder:text-black/60 h-11 focus:ring-0 focus:ring-offset-0">
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
             </FormControl>

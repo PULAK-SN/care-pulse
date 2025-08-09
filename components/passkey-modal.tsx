@@ -2,7 +2,6 @@
 import {
   AlertDialog,
   AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -44,7 +43,7 @@ const PasskeyModal = () => {
         router.push("/admin");
       } else setOpen(true);
     }
-  }, [encryptedKey]);
+  }, [encryptedKey, path, router]);
 
   const validatePasskey = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
