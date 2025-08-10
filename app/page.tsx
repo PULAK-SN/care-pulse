@@ -3,12 +3,16 @@ import PasskeyModal from "@/components/passkey-modal";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function Home({ searchParams }: SearchParamProps) {
-  const { admin } = await searchParams;
+interface HomePageProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  searchParams?: Promise<Record<string, string | string[] | undefined | any>>;
+}
+export default async function Home({ searchParams }: HomePageProps) {
+  const searchParamsObject = await searchParams;
+  const admin = searchParamsObject?.admin;
   const isAdmin = admin === "true";
   return (
     <div className="flex h-screen min-h-screen">
-      {/* OTP Verification | Passkey */}
       {isAdmin && <PasskeyModal />}
       <section className=" relative flex-1 overflow-y-auto my-auto px-[5%]">
         <div className="mx-auto flex size-full flex-col py-10 max-w-[469px]">

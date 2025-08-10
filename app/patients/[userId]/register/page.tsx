@@ -2,7 +2,13 @@ import Image from "next/image";
 import RegisterForm from "@/components/forms/register-form";
 import { getUser } from "@/lib/actions/patient.actions";
 
-const Register = async ({ params: { userId } }: SearchParamProps) => {
+interface RegisterPageProps {
+  params: Promise<{ userId: string }>;
+}
+
+const Register = async ({ params }: RegisterPageProps) => {
+  const { userId } = await params;
+
   const user = await getUser(userId);
 
   return (

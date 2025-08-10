@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -28,8 +29,8 @@ const AppointmentForm = ({
   userId: string;
   patientId: string;
   type: "create" | "cancel" | "schedule";
-  appointment: Appointment;
-  setOpen: (open: boolean) => void;
+  appointment?: Appointment;
+  setOpen?: (open: boolean) => void;
 }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -86,7 +87,7 @@ const AppointmentForm = ({
       } else {
         const appointmentToUpdate = {
           userId,
-          appointmentId: appointment?.$id,
+          appointmentId: appointment?.$id || "",
           appointment: {
             primaryPhysician: values?.primaryPhysician,
             schedule: new Date(values?.schedule),
@@ -97,7 +98,7 @@ const AppointmentForm = ({
         };
         const updatedAppointment = await updateAppointment(appointmentToUpdate);
         if (updatedAppointment) {
-          setOpen(false);
+          setOpen && setOpen(false);
           form.reset();
         }
       }

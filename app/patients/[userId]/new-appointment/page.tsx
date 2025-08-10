@@ -22,9 +22,9 @@ const NewAppointment = async ({
           />
 
           <AppointmentForm
-            type="create"
-            userId={userId}
             patientId={patient.$id}
+            userId={userId}
+            type="create"
           />
 
           <p className="justify-items-end text-gray-700 xl:text-left mt-10 py-10">

@@ -6,13 +6,13 @@ import { formatDateTime } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
-const Success = async ({
-  params,
-  searchParams,
-}: {
+interface SuccessPageProps {
   params: Promise<{ userId: string }>;
-  searchParams: { [key: string]: string | string[] | undefined };
-}) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  searchParams: Promise<{ [key: string]: string | string[] | undefined | any }>;
+}
+
+const Success = async ({ params, searchParams }: SuccessPageProps) => {
   const { userId } = await params;
   const searchParamsAwaited = await searchParams;
   const appointmentId = (searchParamsAwaited?.appointmentId as string) || "";
