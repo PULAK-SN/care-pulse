@@ -15,7 +15,8 @@
     "incremental": true,
     "plugins": [
       {
-        "name": "next"
+        "name": "next",
+        "react-hook-form": ["./node_modules/react-hook-form"]
       }
     ],
     "paths": {

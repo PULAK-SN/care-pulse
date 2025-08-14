@@ -12,7 +12,7 @@ import { Control } from "react-hook-form";
 import { FormFieldType } from "./forms/patient-form";
 import Image from "next/image";
 import PhoneInput from "react-phone-number-input";
-import DatePicker from "react-datepicker";
+import ReactDatePicker from "react-datepicker";
 import { Select, SelectContent, SelectTrigger, SelectValue } from "./ui/select";
 import { Textarea } from "./ui/textarea";
 import { Checkbox } from "./ui/checkbox";
@@ -35,15 +35,8 @@ interface CustomProps {
 }
 
 const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
-  const {
-    fieldType,
-    placeholder,
-    iconSrc,
-    iconAlt,
-    showTimeSelect,
-    dateFormat,
-    renderSkeleton,
-  } = props;
+  const { fieldType, placeholder, iconSrc, iconAlt, renderSkeleton } = props;
+
   switch (fieldType) {
     case FormFieldType.INPUT:
       return (
@@ -92,13 +85,13 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
             className="ml-2"
           />
           <FormControl>
-            <DatePicker
+            <ReactDatePicker
+              showTimeSelect={props.showTimeSelect ?? false}
               selected={field.value}
-              onChange={(date) => field.onChange(date)}
-              dateFormat={dateFormat ?? "mm/dd/yyyy"}
-              showTimeSelect={showTimeSelect ?? false}
+              onChange={(date: Date | null) => field.onChange(date)}
               timeInputLabel="Time:"
-              // wrapperClassName="overflow-hidden border-transparent w-full placeholder:text-dark-600  h-11 text-14-medium rounded-md px-3 outline-none"
+              dateFormat={props.dateFormat ?? "MM/dd/yyyy"}
+              wrapperClassName="date-picker"
               className="border-none outline-none ml-2  h-11 w-full overflow-hidden border-transparent text-xs sm:font-medium rounded-md px-3"
             />
           </FormControl>

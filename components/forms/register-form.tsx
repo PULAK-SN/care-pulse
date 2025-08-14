@@ -1,5 +1,6 @@
 "use client";
-import { useForm } from "react-hook-form";
+import { Resolver, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Form, FormControl } from "@/components/ui/form";
 import CustomFormField from "@/components/custom-form-field";
@@ -26,13 +27,18 @@ const RegisterForm = ({ user }: { user: User }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof PatientFormValidation>>({
-    // resolver: zodResolver(PatientFormValidation),
+    resolver: zodResolver(PatientFormValidation) as Resolver<
+      z.infer<typeof PatientFormValidation>
+    >,
     defaultValues: {
       ...PatientFormDefaultValues,
       name: user.name,
       email: user.email,
       phone: user.phone,
-    },
+      treatmentConsent: false,
+      disclosureConsent: false,
+      privacyConsent: false,
+    } as z.infer<typeof PatientFormValidation>,
   });
 
   const onSubmit = async (values: z.infer<typeof PatientFormValidation>) => {
@@ -59,8 +65,7 @@ const RegisterForm = ({ user }: { user: User }) => {
         name: values.name,
         email: values.email,
         phone: values.phone,
-        // birthDate: new Date(values.birthDate),
-        birthDate: values.birthDate,
+        birthDate: new Date(values.birthDate),
         gender: values.gender,
         address: values.address,
         occupation: values.occupation,
@@ -203,7 +208,7 @@ const RegisterForm = ({ user }: { user: User }) => {
             <CustomFormField
               fieldType={FormFieldType.PHONE_INPUT}
               control={form.control}
-              name="emergencyContactNunber"
+              name="emergencyContactNumber"
               label="Emergency contact number"
               placeholder="(555) 123 - 4567"
             />
@@ -346,16 +351,14 @@ const RegisterForm = ({ user }: { user: User }) => {
           <CustomFormField
             fieldType={FormFieldType.CHECKBOX}
             control={form.control}
-            name="privacyConsent"
-            label="I acknowledge that I have reviewed and agree to the
-            privacy policy"
+            name="disclosureConsent"
+            label="I consent to the use and disclosure of my health information for treatment purposes."
           />
           <CustomFormField
             fieldType={FormFieldType.CHECKBOX}
             control={form.control}
-            name="disclosureConsent"
-            label="I consent to the use and disclosure of my health
-            information for treatment purposes."
+            name="privacyConsent"
+            label="I acknowledge that I have reviewed and agree to the privacy policy"
           />
         </section>
 
