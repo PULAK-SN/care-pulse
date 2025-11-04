@@ -1,3 +1,42 @@
+# 🏫 Doctor Appointment Booking System
+
+A full-stack web application built with **Next.js 15 + Appwrite + TypeScript** that allows patients to request appointments with doctors and admins can to manage, schedule, or cancel requests with real-time data updates.
+
+🚀 **Live Demo:** [Doctor-Appointment-Booking-System.vercel.app](https://care-pulse-nine-dun.vercel.app//)  
+🧑‍💻 **Author:** [Pulak Sen](https://github.com/PULAK-SN/care-pulse)
+
+## 🖼️ Screenshots
+
+### Home Page
+
+<p align="center">
+  <img src="./public/ss/home-page.png" alt="Home page Screenshot">
+</p>
+
+### Appointment Form
+
+<p align="center">
+  <img src="./public/ss/appointment-form.png" alt="Appointment form Screenshot">
+</p>
+
+### New Appointment
+
+<p align="center">
+  <img src="./public/ss/new-appointment.png" alt="New appointment schedule form Screenshot">
+</p>
+
+### Success Page
+
+<p align="center">
+  <img src="./public/ss/success-page.png" alt="Success page Screenshot">
+</p>
+
+### Admin Page
+
+<p align="center">
+  <img src="./public/ss/admin-page.png" alt="Admin page Screenshot">
+</p>
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

@@ -133,6 +133,7 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
               id={props.name}
               checked={field.value}
               onCheckedChange={field.onChange}
+              className="h-[16px] w-[16px]"
             />
             <label
               htmlFor={props.name}
