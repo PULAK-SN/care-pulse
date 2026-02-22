@@ -131,8 +131,9 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
           <div className="flex items-center gap-4">
             <Checkbox
               id={props.name}
-              checked={field.value}
-              onCheckedChange={field.onChange}
+              checked={!!field.value}
+              // onCheckedChange={field.onChange}
+              onCheckedChange={(checked) => field.onChange(!!checked)}
               className="h-[16px] w-[16px]"
             />
             <label
